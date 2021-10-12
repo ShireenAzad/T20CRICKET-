@@ -1,4 +1,4 @@
-import{probability} from "../src/app"
+import{probability, score} from "../src/app"
 let boardruns:(number)[]=[-1,1,2,3,4,5,6,-2]
 let players_data:number[][]=[[ 5, 30, 25, 10, 15, 1, 9, 5],[10, 40, 20, 5 , 10, 1, 4, 10] ,[20, 30, 15,5 , 5, 1, 4, 20],[ 30, 25, 5, 0, 5, 1, 4, 30]]
 describe("Calcualtion of the score of a player based on the probability",function()
@@ -38,5 +38,10 @@ describe("Calcualtion of the score of a player based on the probability",functio
         expect( players_data[player][7]).toBe(30)
         expect(boardruns[7]).toBe(-2)
         console.log("R Rumrah with probability of "+players_data[player][7]+" % was OUT")
+    })
+    it("Checking the score",function(){
+        let  score=jest.fn()
+       score.mockReturnValue(3)
+        expect(score(3)).toBe(3)
     })
 })
