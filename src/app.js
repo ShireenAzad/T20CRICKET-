@@ -1,10 +1,9 @@
 "use strict";
 exports.__esModule = true;
-exports.player_strike = exports.evaluate = exports.score = exports.probability = exports.players_name = exports.outplayers = exports.newplayer = void 0;
+exports.player_strike = exports.evaluate = exports.score = exports.probability = exports.name = exports.players_name = exports.outplayers = void 0;
 var boardruns = [0, 1, 2, 3, 4, 5, 6, -2], players = [0, 0, 0, 0], player = 0, overs, count, runs = 40, finalscore = [];
 var ball_left = 24, players_score = [0, 0, 0, 0], scoring, players_balls = [0, 0, 0, 0];
 var traverse, names = ["Kirat Boli", "N.S.Nodhi", "R Rumrah", "Shashi Henra"], notoufinalscore = [], res = true;
-exports.newplayer = [];
 exports.outplayers = [];
 exports.players_name = ["Kirat Boli", "N.S.Nodhi", "R Rumrah", "Shashi Henra"];
 function probability() {
@@ -44,16 +43,20 @@ function evaluate() {
                     console.log(overs + "." + count + exports.players_name[player] + "scores" + scoring + "runs");
                 player = player_strike(player, count, scoring);
                 if (scoring == -2) {
-                    exports.outplayers.splice(-1, 0, exports.players_name[player]);
-                    finalscore.splice(-1, 0, [exports.players_name[player], players_score[player], players_balls[player]]);
-                    console.log(overs + "." + count + exports.players_name[player] + "is OUT");
-                    players_score.splice(player, 1);
-                    exports.players_name.splice(player, 1);
-                    players_balls.splice(player, 1);
-                    player = 1;
-                    if (res) {
-                        exports.newplayer[0] = exports.players_name[player];
-                        res = false;
+                    if (exports.players_name.length != 1) {
+                        if (exports.players_name[player] != undefined)
+                            exports.outplayers.splice(-1, 0, exports.players_name[player]);
+                        console.log(exports.outplayers);
+                        finalscore.splice(-1, 0, [exports.players_name[player], players_score[player], players_balls[player]]);
+                        console.log(overs + "." + count + exports.players_name[player] + "is OUT");
+                        players_score.splice(player, 1);
+                        exports.players_name.splice(player, 1);
+                        players_balls.splice(player, 1);
+                        player = 1;
+                        if (exports.players_name.length > 1 && res) {
+                            exports.name = exports.players_name[1];
+                            res = false;
+                        }
                     }
                     if (exports.players_name.length == 1) {
                         //If all the wickets are lost ,checkimg whether Bangalore lost the match or the match is tie
@@ -105,17 +108,14 @@ function scoreboard() {
         notoufinalscore.splice(i, 0, [exports.players_name[i], players_score[i], players_balls[i]]);
     for (var i = 0; i < names.length; i++) {
         traverse = exports.players_name.indexOf(names[i]);
-        if (traverse != -1) 
-        //Displaying the scores of players on the crease
-        {
+        if (traverse != -1) {
             if (notoufinalscore[traverse][2] != 0)
                 console.log(names[i] + "  -  " + notoufinalscore[traverse][1] + "*(" + notoufinalscore[traverse][2] + "balls)");
         }
-        //Displaying the scores of the players who are OUT
         else {
             traverse = exports.outplayers.indexOf(names[i]);
             console.log(names[i] + "  -  " + finalscore[traverse][1] + "(" + finalscore[traverse][2] + "balls)");
         }
     }
 }
-console.log(evaluate());
+evaluate();

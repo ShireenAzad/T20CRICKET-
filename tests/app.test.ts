@@ -1,7 +1,7 @@
 import{evaluate, player_strike, probability, score} from "../src/app"
 let boardruns:(number)[]=[0,1,2,3,4,5,6,-2],overs:number,count:number,runs:number,scoring:number,names=["Kirat Boli","N.S.Nodhi","R Rumrah","Shashi Henra"]
 let players_data:number[][]=[[ 5, 30, 25, 10, 15, 1, 9, 5],[10, 40, 20, 5 , 10, 1, 4, 10] ,[20, 30, 15,5 , 5, 1, 4, 20],[ 30, 25, 5, 0, 5, 1, 4, 30]]
-import {newplayer,outplayers,players_name   } from "../src/app"
+import {outplayers,players_name,name } from "../src/app"
 describe("Calcualtion of the score of a player based on the probability",function()
 {
     it("Verifying that Kirat Boli score 4 runs by mocking probability to 15%  ",function()
@@ -93,8 +93,11 @@ describe("Checking the strike of the players in different scenarios",function()
 describe("When a player gets out, the new player comes in at the same position",function()
 {
     it("when kirat boli or N.S.Nodhi is OUT,R Rumrah will comes in the position",function()
-    {
-       expect(newplayer[0]).toBe("R Rumrah")
+    {if(outplayers.length!=0)
+        {
+             expect(name).toBe("R Rumrah")
+        }
+      
 
     })
     
@@ -127,14 +130,11 @@ describe("Testing the score of the individual players",function()
     it("Checking the count  of the players who are out are zero or 3",function()
     {
         expect(outplayers.length).toBeGreaterThanOrEqual(0)
-        for (let i=0;i<outplayers.length;i++)
-        console.log(outplayers)
     })
     it("Checking that atleast one player should be not out",function()
     {
-        expect(players_name.length).toBeGreaterThanOrEqual(1)
-        for (let i=0;i<players_name.length;i++)
-        console.log(players_name)
+
+        expect(outplayers.length).toBeLessThanOrEqual(3)
     })
 
 })
